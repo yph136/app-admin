@@ -1,0 +1,10 @@
+package: github.com/pinlan/training-server
+import:
+- package: github.com/gin-contrib/cors
+- package: github.com/gin-gonic/gin
+- package: github.com/golang/glog
+- package: github.com/spf13/pflag
+- package: k8s.io/api/core/v1
+- package: k8s.io/apimachinery/pkg/apis/meta/v1
+- package: k8s.io/client-go/kubernetes
+- package: k8s.io/client-go/tools/clientcmd

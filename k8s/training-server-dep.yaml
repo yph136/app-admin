@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dap-manager
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dap-manager
+    spec:
+      serviceAccount: dap-manager
+      initContainers:
+      - name: init-db
+        image: dap.registry.com/dap/dap-manager:v0.1
+        command:
+        - /bin/sh
+        - -c
+        - /dap-manager migrate --config=/etc/dap-manager/config.json \
+          --db_host={{ DB_HOST }}  --db_name={{ DB_NAME }} --db_password={{ DB_PASSWORD }}
+        volumeMounts:
+        - name: config
+          mountPath: /etc/dap-manager/
+      containers:
+        - name: dap-manager
+          image: dap.registry.com/dap/dap-manager:v0.1
+          ports:
+          - name: http
+            containerPort: 8088
+          command:
+          - /bin/sh
+          - -c
+          - /dap-manager --db_host={{ DB_HOST }} --db_name={{ DB_NAME }} --db_password={{ DB_PASSWORD }}
+      volumes:
+        - name: config
+          configMap:
+            defaultMode: 420
+            name: dap-manager-conf
