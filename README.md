@@ -1,3 +1,3 @@
-# Training-Server
+# App-admin
 
-Training Server For Pinshi Server
+App admin For Kubernetes

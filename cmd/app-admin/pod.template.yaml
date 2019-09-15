@@ -10,7 +10,7 @@ metadata:
 spec:
   restartPolicy: Never
   containers:
-  - image: harbor.pinlandata.com/pinlan/pinshi:model-zoo-dev-v0.1
+  - image: "{ image }"
     name: training
     resources:
       limits:
